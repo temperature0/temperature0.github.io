@@ -15,7 +15,7 @@
       --border: #e5e7eb;
       --hero-start: #eaf2ff;
       --hero-end: #ffffff;
-      --card-shadow: rgba(30, 64, 175, 0.08);
+      --shadow: rgba(30, 64, 175, 0.08);
       --entertainment-bg: #fff7ed;
       --academic-bg: #eff6ff;
     }
@@ -28,7 +28,7 @@
       --border: #374151;
       --hero-start: #1f2937;
       --hero-end: #111827;
-      --card-shadow: rgba(0, 0, 0, 0.25);
+      --shadow: rgba(0, 0, 0, 0.25);
       --entertainment-bg: #3b2415;
       --academic-bg: #172554;
     }
@@ -43,11 +43,15 @@
 
     body {
       margin: 0;
-      font-family: Arial, "Microsoft YaHei", sans-serif;
       color: var(--text);
       background: var(--page-bg);
+      font-family: Arial, "Microsoft YaHei", sans-serif;
       line-height: 1.7;
       transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
     }
 
     nav {
@@ -56,19 +60,17 @@
       z-index: 10;
 
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
 
       padding: 18px 8%;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-
-      transition: background 0.25s ease;
     }
 
     .logo {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, #2563eb, #7c3aed);
     }
@@ -81,8 +83,8 @@
     nav a {
       margin-left: 24px;
       color: var(--muted);
-      text-decoration: none;
       font-size: 14px;
+      text-decoration: none;
     }
 
     nav a:hover {
@@ -93,15 +95,13 @@
       margin-left: 20px;
       padding: 8px 12px;
 
+      color: var(--text);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
 
-      color: var(--text);
-      background: var(--surface);
-
       cursor: pointer;
       font-size: 16px;
-      transition: background 0.25s ease;
     }
 
     #themeButton:hover {
@@ -115,7 +115,7 @@
     }
 
     .hero {
-      min-height: 430px;
+      min-height: 440px;
 
       display: flex;
       align-items: center;
@@ -131,7 +131,7 @@
 
     .hero h1 {
       margin: 0;
-      font-size: 48px;
+      font-size: 50px;
       letter-spacing: 2px;
     }
 
@@ -166,10 +166,10 @@
 
     .main-card {
       min-height: 270px;
-      padding: 36px;
+      padding: 38px;
 
-      border-radius: 20px;
       color: white;
+      border-radius: 20px;
       text-decoration: none;
 
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -190,13 +190,13 @@
 
     .main-card .tag {
       font-size: 13px;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       opacity: 0.8;
     }
 
     .main-card h3 {
       margin: 35px 0 12px;
-      font-size: 30px;
+      font-size: 31px;
     }
 
     .main-card p {
@@ -211,15 +211,23 @@
     }
 
     .topic-card {
-      min-height: 170px;
+      min-height: 175px;
       padding: 25px;
 
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      box-shadow: 0 8px 25px var(--card-shadow);
+      box-shadow: 0 8px 25px var(--shadow);
 
-      transition: background 0.25s ease, border 0.25s ease;
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px var(--shadow);
     }
 
     .topic-card h3 {
@@ -231,6 +239,18 @@
       color: var(--muted);
     }
 
+    .topic-link {
+      display: block;
+      text-decoration: none;
+    }
+
+    .topic-link strong {
+      display: inline-block;
+      margin-top: 8px;
+      color: #da291c;
+      font-size: 14px;
+    }
+
     .entertainment-section {
       background: var(--entertainment-bg);
     }
@@ -240,8 +260,11 @@
     }
 
     footer {
-      height: 100px;
+      padding: 35px 0;
+      color: #9ca3af;
       background: #111827;
+      text-align: center;
+      font-size: 14px;
     }
 
     @media (max-width: 700px) {
@@ -255,12 +278,12 @@
       }
 
       nav a {
-        margin-left: 8px;
+        margin-left: 9px;
         font-size: 12px;
       }
 
       #themeButton {
-        margin-left: 8px;
+        margin-left: 9px;
       }
 
       .hero {
@@ -286,7 +309,9 @@
 <body>
 
   <nav>
-    <div class="logo"></div>
+    <a href="#home" aria-label="返回首页">
+      <div class="logo"></div>
+    </a>
 
     <div class="nav-links">
       <a href="#home">首页</a>
@@ -300,7 +325,7 @@
   </nav>
 
   <header class="hero" id="home">
-    <div>
+    <div class="container">
       <h1>Personal Homepage</h1>
       <p>兴趣记录与学术探索</p>
     </div>
@@ -344,37 +369,43 @@
     </section>
 
     <section
-      class="entertainment-section"
       id="entertainment"
+      class="entertainment-section"
     >
       <div class="container">
         <div class="section-heading">
           <h2>娱乐兴趣区</h2>
           <p>
-            记录感兴趣的体育项目、游戏和生活内容。
+            记录体育、游戏和其他感兴趣的内容。
           </p>
         </div>
 
         <div class="topic-grid">
 
-          <div class="topic-card">
+          <a
+            href="sports.html"
+            class="topic-card topic-link"
+          >
             <h3>体育</h3>
             <p>
-              未来可以在这里记录喜欢的球队、赛事和观点。
+              记录喜欢的球队、赛事和体育观点。
             </p>
-          </div>
+            <strong>
+              进入曼联比赛中心 →
+            </strong>
+          </a>
 
           <div class="topic-card">
             <h3>游戏</h3>
             <p>
-              未来可以在这里分享游戏体验、攻略和想法。
+              未来可以分享游戏体验、攻略和个人想法。
             </p>
           </div>
 
           <div class="topic-card">
             <h3>其他兴趣</h3>
             <p>
-              这里可以扩展电影、音乐、阅读等内容。
+              未来可以扩展电影、音乐、阅读等内容。
             </p>
           </div>
 
@@ -383,8 +414,8 @@
     </section>
 
     <section
-      class="academic-section"
       id="academic"
+      class="academic-section"
     >
       <div class="container">
         <div class="section-heading">
@@ -423,10 +454,16 @@
 
   </main>
 
-  <footer></footer>
+  <footer>
+    <div class="container">
+      <span>Personal Homepage · </span>
+      <span id="currentYear"></span>
+    </div>
+  </footer>
 
   <script>
     const themeButton = document.getElementById("themeButton");
+    const currentYear = document.getElementById("currentYear");
 
     const savedTheme = localStorage.getItem("theme");
 
@@ -449,6 +486,8 @@
         localStorage.setItem("theme", "light");
       }
     });
+
+    currentYear.textContent = new Date().getFullYear();
   </script>
 
 </body>
