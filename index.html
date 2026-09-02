@@ -3,8 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+
+  <title>Personal Homepage</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      color: #1f2937;
+      background: #f3f6fb;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #2563eb;
+    }
+
+    nav a {
+      margin-left: 24px;
+      color: #4b5563;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      width: 88%;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #eaf2ff, #ffffff);
+    }
+
+    .hero-content {
+      width: 100%;
+      min-height: 180px;
+    }
+
+    .hero-line {
+      width: 280px;
+      height: 16px;
+      margin: 30px auto 16px;
+      border-radius: 10px;
+      background: #dbeafe;
+    }
+
+    .hero-small-line {
+      width: 180px;
+      height: 10px;
+      margin: auto;
+      border-radius: 10px;
+      background: #e5e7eb;
+    }
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      width: 130px;
+      height: 18px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      background: #bfdbfe;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      min-height: 180px;
+      padding: 25px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(30, 64, 175, 0.08);
+    }
+
+    .card-line {
+      width: 70%;
+      height: 14px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      background: #dbeafe;
+    }
+
+    .card-line-small {
+      width: 90%;
+      height: 9px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      background: #f1f5f9;
+    }
+
+    footer {
+      height: 100px;
+      background: #111827;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        padding: 15px 5%;
+      }
+
+      nav a {
+        margin-left: 8px;
+        font-size: 12px;
+      }
+
+      .container {
+        width: 90%;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
+  <nav>
+    <div class="logo"></div>
+
+    <div>
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-line"></div>
+      <div class="hero-small-line"></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="about">
+      <div class="section-title"></div>
+
+      <div class="card">
+        <div class="card-line"></div>
+        <div class="card-line-small"></div>
+        <div class="card-line-small"></div>
+        <div class="card-line-small"></div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="section-title"></div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-line"></div>
+          <div class="card-line-small"></div>
+          <div class="card-line-small"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-line"></div>
+          <div class="card-line-small"></div>
+          <div class="card-line-small"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-line"></div>
+          <div class="card-line-small"></div>
+          <div class="card-line-small"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-title"></div>
+
+      <div class="card-grid">
+        <div class="card"></div>
+        <div class="card"></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title"></div>
+
+      <div class="card"></div>
+    </section>
+
+  </main>
+
+  <footer></footer>
+
 </body>
 </html>
