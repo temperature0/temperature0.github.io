@@ -19,7 +19,8 @@
       margin: 0;
       font-family: Arial, "Microsoft YaHei", sans-serif;
       color: #1f2937;
-      background: #f3f6fb;
+      background: #f5f7fb;
+      line-height: 1.7;
     }
 
     nav {
@@ -38,7 +39,7 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
     }
 
     nav a {
@@ -54,7 +55,7 @@
 
     .container {
       width: 88%;
-      max-width: 1050px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -67,67 +68,108 @@
       background: linear-gradient(135deg, #eaf2ff, #ffffff);
     }
 
-    .hero-content {
-      width: 100%;
-      min-height: 180px;
+    .hero h1 {
+      margin: 0;
+      font-size: 48px;
+      letter-spacing: 2px;
     }
 
-    .hero-line {
-      width: 280px;
-      height: 16px;
-      margin: 30px auto 16px;
-      border-radius: 10px;
-      background: #dbeafe;
-    }
-
-    .hero-small-line {
-      width: 180px;
-      height: 10px;
-      margin: auto;
-      border-radius: 10px;
-      background: #e5e7eb;
+    .hero p {
+      margin-top: 18px;
+      color: #6b7280;
+      font-size: 18px;
     }
 
     section {
-      padding: 70px 0;
+      padding: 75px 0;
     }
 
-    .section-title {
-      width: 130px;
-      height: 18px;
+    .section-heading {
       margin-bottom: 30px;
-      border-radius: 10px;
-      background: #bfdbfe;
     }
 
-    .card-grid {
+    .section-heading h2 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .section-heading p {
+      color: #6b7280;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .main-card {
+      min-height: 270px;
+      padding: 36px;
+      border-radius: 20px;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .main-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.16);
+    }
+
+    .entertainment-card {
+      background: linear-gradient(135deg, #f97316, #ef4444);
+    }
+
+    .academic-card {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+    }
+
+    .main-card .tag {
+      font-size: 13px;
+      opacity: 0.8;
+      letter-spacing: 1px;
+    }
+
+    .main-card h3 {
+      margin: 35px 0 12px;
+      font-size: 30px;
+    }
+
+    .main-card p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .topic-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 20px;
     }
 
-    .card {
-      min-height: 180px;
+    .topic-card {
+      min-height: 150px;
       padding: 25px;
       background: white;
       border-radius: 14px;
       box-shadow: 0 8px 25px rgba(30, 64, 175, 0.08);
     }
 
-    .card-line {
-      width: 70%;
-      height: 14px;
-      margin-bottom: 18px;
-      border-radius: 8px;
-      background: #dbeafe;
+    .topic-card h3 {
+      margin-top: 0;
+      color: #2563eb;
     }
 
-    .card-line-small {
-      width: 90%;
-      height: 9px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      background: #f1f5f9;
+    .topic-card p {
+      color: #6b7280;
+    }
+
+    .entertainment-section {
+      background: #fff7ed;
+    }
+
+    .academic-section {
+      background: #eff6ff;
     }
 
     footer {
@@ -145,12 +187,17 @@
         font-size: 12px;
       }
 
-      .container {
-        width: 90%;
+      .hero h1 {
+        font-size: 36px;
       }
 
-      .card-grid {
+      .main-grid,
+      .topic-grid {
         grid-template-columns: 1fr;
+      }
+
+      .main-card {
+        min-height: 220px;
       }
     }
   </style>
@@ -162,70 +209,96 @@
     <div class="logo"></div>
 
     <div>
-      <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <a href="#home">首页</a>
+      <a href="#entertainment">娱乐兴趣</a>
+      <a href="#academic">学术研究</a>
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="hero-content">
-      <div class="hero-line"></div>
-      <div class="hero-small-line"></div>
+  <header class="hero" id="home">
+    <div>
+      <h1>Personal Homepage</h1>
+      <p>兴趣记录与学术探索</p>
     </div>
   </header>
 
-  <main class="container">
+  <main>
 
-    <section id="about">
-      <div class="section-title"></div>
-
-      <div class="card">
-        <div class="card-line"></div>
-        <div class="card-line-small"></div>
-        <div class="card-line-small"></div>
-        <div class="card-line-small"></div>
-      </div>
-    </section>
-
-    <section id="research">
-      <div class="section-title"></div>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-line"></div>
-          <div class="card-line-small"></div>
-          <div class="card-line-small"></div>
+    <section>
+      <div class="container">
+        <div class="section-heading">
+          <h2>Explore</h2>
+          <p>选择一个方向进入</p>
         </div>
 
-        <div class="card">
-          <div class="card-line"></div>
-          <div class="card-line-small"></div>
-          <div class="card-line-small"></div>
-        </div>
+        <div class="main-grid">
 
-        <div class="card">
-          <div class="card-line"></div>
-          <div class="card-line-small"></div>
-          <div class="card-line-small"></div>
+          <a href="#entertainment" class="main-card entertainment-card">
+            <div class="tag">INTERESTS</div>
+            <h3>娱乐兴趣区</h3>
+            <p>体育、游戏，以及其他个人兴趣记录。</p>
+          </a>
+
+          <a href="#academic" class="main-card academic-card">
+            <div class="tag">ACADEMIC</div>
+            <h3>学术区</h3>
+            <p>具身智能、机器人和相关科研内容。</p>
+          </a>
+
         </div>
       </div>
     </section>
 
-    <section id="projects">
-      <div class="section-title"></div>
+    <section class="entertainment-section" id="entertainment">
+      <div class="container">
+        <div class="section-heading">
+          <h2>娱乐兴趣区</h2>
+          <p>记录感兴趣的体育项目、游戏和生活内容。</p>
+        </div>
 
-      <div class="card-grid">
-        <div class="card"></div>
-        <div class="card"></div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>体育</h3>
+            <p>未来可以在这里记录喜欢的球队、赛事和观点。</p>
+          </div>
+
+          <div class="topic-card">
+            <h3>游戏</h3>
+            <p>未来可以在这里分享游戏体验、攻略和想法。</p>
+          </div>
+
+          <div class="topic-card">
+            <h3>其他兴趣</h3>
+            <p>这里可以扩展电影、音乐、阅读等内容。</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="contact">
-      <div class="section-title"></div>
+    <section class="academic-section" id="academic">
+      <div class="container">
+        <div class="section-heading">
+          <h2>学术区</h2>
+          <p>记录具身智能、机器人和科研项目。</p>
+        </div>
 
-      <div class="card"></div>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>具身智能</h3>
+            <p>介绍视觉、语言、动作和环境交互相关内容。</p>
+          </div>
+
+          <div class="topic-card">
+            <h3>机器人</h3>
+            <p>介绍机器人操作、控制和机器人系统。</p>
+          </div>
+
+          <div class="topic-card">
+            <h3>论文与项目</h3>
+            <p>未来可以放置论文、实验结果和代码链接。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
