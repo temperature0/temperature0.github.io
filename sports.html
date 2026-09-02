@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>曼联比赛中心</title>
+
+  <style>
+    :root {
+      --red: #da291c;
+      --dark-red: #8b0000;
+      --page-bg: #f5f5f5;
+      --surface: #ffffff;
+      --text: #202020;
+      --muted: #777777;
+      --border: #e5e5e5;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --green: #16803c;
+      --yellow: #b77900;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--page-bg);
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      color: white;
+      padding: 60px 0;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(218, 41, 28, 0.96),
+          rgba(80, 0, 0, 0.98)
+        );
+    }
+
+    .hero-content {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .club-crest {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      opacity: 0.75;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 42px;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      opacity: 0.82;
+    }
+
+    section {
+      padding: 55px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .refresh-button {
+      padding: 9px 16px;
+      color: white;
+      background: var(--red);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .refresh-button:hover {
+      background: var(--dark-red);
+    }
+
+    .refresh-button:disabled {
+      cursor: wait;
+      opacity: 0.6;
+    }
+
+    .notice {
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .match-card {
+      min-height: 245px;
+      padding: 22px 18px;
+      background: var(--surface);
+      border-top: 5px solid var(--red);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .match-card.live-card {
+      border-top-color: #159447;
+    }
+
+    .match-label {
+      color: var(--red);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .live-card .match-label {
+      color: #159447;
+    }
+
+    .competition {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .match-date {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .team {
+      width: 42%;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .team img {
+      display: block;
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 8px;
+      object-fit: contain;
+    }
+
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .venue {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .empty-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .form-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .form-badge {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    .form-win {
+      background: var(--green);
+    }
+
+    .form-draw {
+      background: var(--yellow);
+    }
+
+    .form-loss {
+      background: var(--red);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      background: #fafafa;
+      font-weight: normal;
+    }
+
+    td:nth-child(2) {
+      text-align: left;
+    }
+
+    .my-team {
+      color: var(--red);
+      background: #fff1f0;
+      font-weight: bold;
+    }
+
+    .team-table-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-table-name img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .official-link {
+      padding: 14px 18px;
+      color: white;
+      background: #202020;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .official-link:hover {
+      background: var(--red);
+    }
+
+    footer {
+      height: 100px;
+      background: #171717;
+    }
+
+    @media (max-width: 950px) {
+      .match-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 45px 0;
+      }
+
+      .hero-content {
+        display: block;
+        text-align: center;
+      }
+
+      .club-crest {
+        margin-bottom: 15px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .match-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <img
+        id="clubCrest"
+        class="club-crest"
+        src="https://crests.football-data.org/66.svg"
+        alt="Manchester United"
+      >
+
+      <div>
+        <div class="eyebrow">RED DEVILS HUB</div>
+        <h1>曼联比赛中心</h1>
+        <p id="updatedAt">正在加载数据……</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>赛程与赛果</h2>
+
+          <button
+            id="refreshButton"
+            class="refresh-button"
+          >
+            刷新数据
+          </button>
+        </div>
+
+        <div id="notice" class="notice">
+          正在读取比赛数据……
+        </div>
+
+        <div class="match-grid">
+
+          <article id="lastMatch" class="match-card">
+            <div class="empty-card">等待上一场比赛数据</div>
+          </article>
+
+          <article
+            id="liveMatch"
+            class="match-card live-card"
+            hidden
+          ></article>
+
+          <article id="nextMatch1" class="match-card">
+            <div class="empty-card">等待下一场比赛数据</div>
+          </article>
+
+          <article id="nextMatch2" class="match-card">
+            <div class="empty-card">等待下下场比赛数据</div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>曼联近期状态</h2>
+        </div>
+
+        <div id="formList" class="form-list">
+          <span class="notice">暂无近期战绩</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>英超积分榜</h2>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>球队</th>
+                <th>场次</th>
+                <th>胜</th>
+                <th>平</th>
+                <th>负</th>
+                <th>净胜球</th>
+                <th>积分</th>
+              </tr>
+            </thead>
+
+            <tbody id="standingsBody">
+              <tr>
+                <td colspan="8">暂无积分榜数据</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>相关入口</h2>
+        </div>
+
+        <div class="links">
+          <a
+            class="official-link"
+            href="https://www.manutd.com/"
+            target="_blank"
+          >
+            曼联官方网站
+          </a>
+
+          <a
+            class="official-link"
+            href="https://www.premierleague.com/"
+            target="_blank"
+          >
+            英超官方网站
+          </a>
+
+          <a
+            class="official-link"
+            href="index.html"
+          >
+            返回个人主页
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer></footer>
+
+  <script>
+    const TEAM_ID = 66;
+    const DATA_URL = "data/football.json";
+
+    const $ = (id) => document.getElementById(id);
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatDate(value) {
+      if (!value) {
+        return "时间待定";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "时间待定";
+      }
+
+      return new Intl.DateTimeFormat("zh-CN", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(date);
+    }
+
+    function getCrest(team) {
+      return team?.crest ||
+        "https://crests.football-data.org/66.svg";
+    }
+
+    function getTeamName(team) {
+      return team?.shortName ||
+        team?.name ||
+        "待定";
+    }
+
+    function getScore(match) {
+      const home = match?.score?.fullTime?.home;
+      const away = match?.score?.fullTime?.away;
+
+      if (home === null || away === null ||
+          home === undefined || away === undefined) {
+        return "VS";
+      }
+
+      return `${home} - ${away}`;
+    }
+
+    function getResult(match) {
+      const winner = match?.score?.winner;
+
+      if (!winner) {
+        return "";
+      }
+
+      const isHomeTeam =
+        Number(match.homeTeam?.id) === TEAM_ID;
+
+      if (
+        (winner === "HOME" && isHomeTeam) ||
+        (winner === "AWAY" && !isHomeTeam)
+      ) {
+        return "胜";
+      }
+
+      if (winner === "DRAW") {
+        return "平";
+      }
+
+      return "负";
+    }
+
+    function getResultClass(result) {
+      if (result === "胜") {
+        return "form-win";
+      }
+
+      if (result === "平") {
+        return "form-draw";
+      }
+
+      return "form-loss";
+    }
+
+    function teamHtml(team) {
+      return `
+        <div class="team">
+          <img
+            src="${escapeHtml(getCrest(team))}"
+            alt="${escapeHtml(getTeamName(team))}"
+          >
+          <div>${escapeHtml(getTeamName(team))}</div>
+        </div>
+      `;
+    }
+
+    function renderMatchCard(elementId, label, match) {
+      const element = $(elementId);
+
+      if (!match) {
+        element.innerHTML = `
+          <div class="empty-card">
+            暂无数据
+          </div>
+        `;
+        return;
+      }
+
+      const competition =
+        match.competition?.name || "比赛";
+
+      const venue =
+        match.venue || "场地待定";
+
+      const result = getResult(match);
+      const resultText = result
+        ? `<span class="result-text">${result}</span>`
+        : "";
+
+      element.innerHTML = `
+        <div class="match-label">
+          ${escapeHtml(label)} ${resultText}
+        </div>
+
+        <div class="competition">
+          ${escapeHtml(competition)}
+        </div>
+
+        <div class="match-date">
+          ${formatDate(match.utcDate)}
+        </div>
+
+        <div class="teams">
+          ${teamHtml(match.homeTeam)}
+
+          <div class="score">
+            ${escapeHtml(getScore(match))}
+          </div>
+
+          ${teamHtml(match.awayTeam)}
+        </div>
+
+        <div class="venue">
+          ${escapeHtml(venue)}
+        </div>
+      `;
+    }
+
+    function renderForm(matches) {
+      const element = $("formList");
+
+      if (!matches || matches.length === 0) {
+        element.innerHTML = `
+          <span class="notice">暂无近期战绩</span>
+        `;
+        return;
+      }
+
+      element.innerHTML = matches.map((match) => {
+        const result = getResult(match);
+
+        return `
+          <span
+            class="form-badge ${getResultClass(result)}"
+            title="${escapeHtml(formatDate(match.utcDate))}"
+          >
+            ${escapeHtml(result || "?")}
+          </span>
+        `;
+      }).join("");
+    }
+
+    function renderStandings(rows) {
+      const body = $("standingsBody");
+
+      if (!rows || rows.length === 0) {
+        body.innerHTML = `
+          <tr>
+            <td colspan="8">暂无积分榜数据</td>
+          </tr>
+        `;
+        return;
+      }
+
+      body.innerHTML = rows.map((row) => {
+        const team = row.team || {};
+        const isMyTeam = Number(team.id) === TEAM_ID;
+
+        return `
+          <tr class="${isMyTeam ? "my-team" : ""}">
+            <td>${escapeHtml(row.position)}</td>
+
+            <td>
+              <div class="team-table-name">
+                <img
+                  src="${escapeHtml(getCrest(team))}"
+                  alt="${escapeHtml(getTeamName(team))}"
+                >
+                <span>${escapeHtml(getTeamName(team))}</span>
+              </div>
+            </td>
+
+            <td>${escapeHtml(row.playedGames)}</td>
+            <td>${escapeHtml(row.won)}</td>
+            <td>${escapeHtml(row.draw)}</td>
+            <td>${escapeHtml(row.lost)}</td>
+            <td>${escapeHtml(row.goalDifference)}</td>
+            <td>${escapeHtml(row.points)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderData(data) {
+      const team = data.team || {};
+
+      if (team.crest) {
+        $("clubCrest").src = team.crest;
+      }
+
+      $("updatedAt").textContent = data.generatedAt
+        ? `数据更新时间：${formatDate(data.generatedAt)}`
+        : "数据等待更新";
+
+      $("notice").textContent =
+        "数据加载成功。点击右上角按钮可以手动刷新。";
+
+      renderMatchCard(
+        "lastMatch",
+        "上一场",
+        data.lastMatch
+      );
+
+      const liveMatch = data.liveMatches?.[0];
+      const liveElement = $("liveMatch");
+
+      if (liveMatch) {
+        liveElement.hidden = false;
+        renderMatchCard(
+          "liveMatch",
+          "正在进行",
+          liveMatch
+        );
+      } else {
+        liveElement.hidden = true;
+      }
+
+      renderMatchCard(
+        "nextMatch1",
+        "下一场",
+        data.nextMatches?.[0]
+      );
+
+      renderMatchCard(
+        "nextMatch2",
+        "下下场",
+        data.nextMatches?.[1]
+      );
+
+      renderForm(data.recentMatches);
+      renderStandings(data.standings);
+    }
+
+    async function loadFootballData() {
+      const button = $("refreshButton");
+
+      button.disabled = true;
+      $("notice").textContent = "正在更新数据……";
+
+      try {
+        const response = await fetch(
+          `${DATA_URL}?t=${Date.now()}`,
+          { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+          throw new Error("数据文件不存在");
+        }
+
+        const data = await response.json();
+        renderData(data);
+      } catch (error) {
+        console.error(error);
+
+        $("notice").textContent =
+          "暂时无法读取比赛数据。请稍后重试。";
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    $("refreshButton").addEventListener(
+      "click",
+      loadFootballData
+    );
+
+    loadFootballData();
+  </script>
+
+</body>
+</html>
